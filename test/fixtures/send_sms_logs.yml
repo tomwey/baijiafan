@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mobile: MyString
+  send_total: 1
+  first_sms_sent_at: 2015-04-19 23:46:57
+
+two:
+  mobile: MyString
+  send_total: 1
+  first_sms_sent_at: 2015-04-19 23:46:57
