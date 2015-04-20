@@ -9,6 +9,10 @@ gem 'pg'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
 
+# 上传组件
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick','3.7.0', require: false
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

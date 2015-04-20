@@ -44,7 +44,8 @@ module API
     
     # 认证用户
     def authenticate!
-      current_user || { code: 401, message: "用户未登录" }
+      return { code: 401, message: "用户未登录" } unless current_user
+      current_user
     end
     
     # 手机号验证
