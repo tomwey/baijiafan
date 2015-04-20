@@ -42,6 +42,28 @@ gem 'rest-client'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-utf8_sanitizer'
 
+# Use unicorn as the app server
+gem 'unicorn'
+
+gem 'unicorn-worker-killer'
+
+# Use Capistrano for deployment
+group :development do
+  
+  # rails specific capistrano funcitons
+  gem 'capistrano-rails', '~> 1.1.0'
+
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler'
+
+  # if you are using RBENV
+  gem 'capistrano-rbenv', "~> 2.0" 
+  
+  gem 'quiet_assets'
+  
+  gem 'annotate', '~> 2.6.5'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
