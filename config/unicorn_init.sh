@@ -12,7 +12,7 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/home/deployer/apps/baijiafan/current
+APP_ROOT=/home/deployer/apps/baijiafan_production/current
 PID=$APP_ROOT/tmp/pids/unicorn_baijiafan.pid
 CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 AS_USER=deployer

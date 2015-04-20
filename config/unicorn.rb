@@ -1,6 +1,6 @@
 worker_processes 6
 
-root = "/home/deployer/apps/baijiafan/current"
+root = "/home/deployer/apps/baijiafan_production/current"
 working_directory root
 # shared_root = "/home/deployer/apps/shuiguoshe/shared"
 

@@ -14,7 +14,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
 set :keep_releases, 5
 
-set :linked_files, %w{config/database.yml config/config.yml}
+set :linked_files, %w{config/database.yml}
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads}
 
@@ -29,15 +29,15 @@ namespace :deploy do
     end
   end
   
-  task :setup_config do
-    put File.read("config/database.yml.example"), "#{shared_path}/config/database.yml"
-    put File.read("config/config.yml.example"), "#{shared_path}/config/config.yml"
-  end
+  # task :setup_config do
+  #   put File.read("config/database.yml.example"), "#{shared_path}/config/database.yml"
+  #   put File.read("config/config.yml.example"), "#{shared_path}/config/config.yml"
+  # end
   
   after :finishing, 'deploy:cleanup'
   after :finishing, 'deploy:restart'
   
-  before 'deploy:check:linked_files', 'deploy:setup_config'
+  # before 'deploy:check:linked_files', 'deploy:setup_config'
   
 end
 
