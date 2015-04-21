@@ -18,6 +18,12 @@ set :linked_files, %w{config/database.yml}
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads}
 
+set(:symlinks, [
+  {
+    source: "nginx.conf"
+  }
+])
+
 namespace :deploy do
   
   %w[start stop restart].each do |command|
@@ -38,7 +44,6 @@ namespace :deploy do
   after :finishing, 'deploy:restart'
   
   # before 'deploy:check:linked_files', 'deploy:setup_config'
-  
 end
 
 namespace :remote_rake do
