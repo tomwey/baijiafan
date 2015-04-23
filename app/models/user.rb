@@ -18,7 +18,15 @@ class User < ActiveRecord::Base
       id: self.id,
       nickname: self.nickname || "",
       token: self.private_token || "",
-      avatar: self.avatar.url(:big) || "",
+      avatar: self.avatar_url,
     }
+  end
+  
+  def avatar_url
+    if self.avatar.present?
+      self.avatar.url(:big)
+    else
+      ""
+    end
   end
 end

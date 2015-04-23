@@ -17,6 +17,7 @@ POST /user/update_profile
      nickname 用户名，可选参数
      avatar 图片数据，可选参数
 
-
+4.获取用户个人资料
+GET /user/me?token=用户Token
      
      
