@@ -43,6 +43,16 @@ module API
     
     resource :user do
       
+      # 获取用户个人资料
+      params do
+        requires :token, type: String, desc: "Token, 必须"
+      end
+      
+      get :me do
+        user = authenticate!
+        { code: 0, message: "ok", data: user }
+      end # end get me
+      
       # 修改用户资料
       params do
         requires :token, type: String, desc: "Token, 必须"
