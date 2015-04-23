@@ -13,6 +13,9 @@ gem 'activerecord-postgis-adapter'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick','3.7.0', require: false
 
+# YAML 配置信息
+gem 'settingslogic', '~> 2.0.9'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
