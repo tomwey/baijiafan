@@ -19,5 +19,31 @@ POST /user/update_profile
 
 4.获取用户个人资料
 GET /user/me?token=用户Token
+
+5.获取用户发布的菜
+GET /user/items?token=用户token
+
+6.发布菜单
+POST /items/create
+参数     token Token，必须
+        title 标题，必须
+        price 价格，整数，必须
+        quantity 数量，整数，必须
+        expired_at 截止日期，字符串，必须，格式为：2000-01-01 12:00:00
+        address 地址，字符串，必须
+        latitude 纬度，数字符串，必须
+        longitude 经度，数字符串，必须
+        service_modes 服务方式，字符串，必须
+        image 图片数据，二进制数据，可选
+        note 温馨提示，可选，字符串
+        
+7.查看某个菜单详情
+GET /items/:id  id为条目id
+
+8.根据当前位置获取菜单列表
+GET /items/list
+参数     latitude 纬度，数字符串，必须
+        longitude 经度，数字符串，必须
+        range 覆盖范围，以公里为单位，默认为2公里范围内，整数，可选
      
      

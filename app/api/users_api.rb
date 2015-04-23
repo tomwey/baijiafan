@@ -76,8 +76,18 @@ module API
         else
           { code: 1006, message: user.errors.full_messages.join(",") }
         end
-      end
+      end # end update profile
       
+      # 获取该用户下所发布的所有菜单
+      params do
+        requires :token, type: String, desc: "Token, 必须"
+      end
+      get :items do
+        user = authenticate!
+        
+        items = Item.where(user_id: user.id).order('id DESC')
+        { code: 0, message: "ok", data: items }
+      end # end items
     end # end user resource
     
   end

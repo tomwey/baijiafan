@@ -4,6 +4,7 @@ require "entities"
 
 require "auth_codes_api"
 require "users_api"
+require "items_api"
 
 module API
   class APIV1 < Grape::API
@@ -26,5 +27,7 @@ module API
     
     mount API::AuthCodesAPI
     mount API::UsersAPI
+    mount API::ItemsAPI
+    
   end
 end

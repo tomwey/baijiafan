@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  price: 1
+  quantity: 1
+  expired_at: 2015-04-23 22:18:14
+  address: MyString
+  coordinates: 
+  note: MyString
+  image: MyString
+  service_modes: MyString
+
+two:
+  title: MyString
+  price: 1
+  quantity: 1
+  expired_at: 2015-04-23 22:18:14
+  address: MyString
+  coordinates: 
+  note: MyString
+  image: MyString
+  service_modes: MyString
