@@ -39,7 +39,7 @@ POST /items/create
         note 温馨提示，可选，字符串
         
 7.查看某个菜单详情
-GET /items/:id  id为条目id
+GET /items/show/:id  id为条目id
 
 8.根据当前位置获取菜单列表
 GET /items/list

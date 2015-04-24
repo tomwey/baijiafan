@@ -61,11 +61,11 @@ module API
       params do
         requires :latitude, type: String, desc: "纬度，数字符串，必须"
         requires :longitude, type: String, desc: "经度，数字符串，必须"
-        optional :range, type: Integer, desc: "覆盖范围，以公里为单位，默认为2公里范围内，整数，可选"
+        optional :range, type: Integer, desc: "覆盖范围，以米为单位，默认为500米范围内，整数，可选"
       end
       get :list do
-        range = params[:range] || "2"
-        items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range.to_i * 1000})").order("distance")
+        range = params[:range] || "500"
+        items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").order("distance")
         { code: 0, message: "ok", data: items }
       end # end list
       
