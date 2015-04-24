@@ -27,7 +27,7 @@ module API
         # 快捷登录
         user = User.find_by(mobile: params[:mobile])
         if user.blank?
-          user = User.create(mobile: params[:mobile])
+          user = User.create!(mobile: params[:mobile])
         end
         
         if user
