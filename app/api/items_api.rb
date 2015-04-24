@@ -52,9 +52,9 @@ module API
       end # end 发布
       
       # 查看菜的详情
-      get '/:id' do
+      get '/show/:id' do
         item = Item.find_by(id: params[:id])
-        { code: 0, message: "ok", data: item }
+        { code: 0, message: "ok", data: item || {} }
       end # end view
       
       # 根据当前位置获取菜单列表
@@ -65,7 +65,7 @@ module API
       end
       get :list do
         range = params[:range] || "2"
-        items = Item.select("items.*, st_distance(coordinates, ST_WKTToSQL('point(#{params[:longitude]} #{params[:latitude]})')) as distance").where("st_dwithin(coordinates, ST_WKTToSQL('point(#{params[:longitude]} #{params[:latitude]})'), #{range.to_i * 1000})").order("distance")
+        items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range.to_i * 1000})").order("distance")
         { code: 0, message: "ok", data: items }
       end # end list
       
