@@ -26,18 +26,20 @@ module API
         
         # 快捷登录
         user = User.find_by(mobile: params[:mobile])
-        if user.blank?
-          user = User.create!(mobile: params[:mobile])
+        if user.present?
+          ac.update_attribute('verified', false)
+          return { code: 0, message: "ok", data: user }
         end
         
-        if user
+        user = User.new(mobile: params[:mobile])
+        if user.save
           ac.update_attribute('verified', false)
           { code: 0, message: "ok", data: user }
         else
           { code: 1005, message: "用户登录失败" }
         end
         
-      end
+      end # end account login
       
     end # end account resource
     
