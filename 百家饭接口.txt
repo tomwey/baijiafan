@@ -16,6 +16,7 @@ POST /user/update_profile
 参数  token 登录成功后，会返回Token, 必须
      nickname 用户名，可选参数
      avatar 图片数据，可选参数
+     signature 个性签名，可选参数
 
 4.获取用户个人资料
 GET /user/me?token=用户Token

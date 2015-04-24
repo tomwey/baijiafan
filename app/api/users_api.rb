@@ -60,6 +60,7 @@ module API
         requires :token, type: String, desc: "Token, 必须"
         optional :avatar, desc: "用户头像图片数据，可选"
         optional :nickname, type: String, desc: "用户昵称，可选"
+        optional :signature, type: String, desc: "个性签名，可选"
       end
       
       post :update_profile do
@@ -71,6 +72,10 @@ module API
         
         if params[:nickname]
           user.nickname = params[:nickname]
+        end
+        
+        if params[:signature]
+          user.signature = params[:signature]
         end
         
         if user.save

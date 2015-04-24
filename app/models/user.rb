@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
       nickname: self.nickname || "",
       token: self.private_token || "",
       avatar: self.avatar_url,
+      signature: self.signature || "",
     }
   end
   
