@@ -25,13 +25,13 @@ class Item < ActiveRecord::Base
       latitude: coordinates.y || "",
       longitude: coordinates.x || "",
       note: self.note || "",
-      user: {
-        nickname: user.nickname,
-        mobile: user.mobile,
-        avatar: user.avatar_url,
-        likes_count: 0,
-      }
+      user: user || {}, 
     }
+  end
+  
+  def liked_by_user?(user)
+    return false if user.blank?
+    LikeItem.where(user_id: user.id, item_id: self.id, item_user_id: self.user.id).count > 0
   end
   
   def left_time

@@ -95,6 +95,42 @@ module API
         items = Item.where(user_id: user.id).order('id DESC')
         { code: 0, message: "ok", data: items }
       end # end items
+      
+      # 用户点赞操作
+      params do
+        requires :token, type: String, desc: "Token, 必须"
+        requires :like_type, type: String, desc: "需要点赞的对象类名，值为：User, Item(菜谱)中的一个"
+        requires :like_id, type: String, desc: "需要点赞的对象id"
+      end
+      post '/:method' do
+        user = authenticate!
+        return { code: -1, message: "不正确的点赞操作" } unless %W(like unlike).include?(params[:method])
+        
+        likeable = params[:like_type].constantize.find_by(id: params[:like_id])
+        if user.send(params[:method].to_sym, likeable)
+          { code: 0, message: "ok", data: likeable }
+        else
+          { code: 1007, message: "点赞操作失败" }
+        end
+        
+      end # end 点赞操作
+      
+      # 用户点赞操作2
+      params do
+        requires :token, type: String, desc: "Token, 必须"
+      end
+      post '/:method/:item_id' do
+        user = authenticate!
+        return { code: -1, message: "不正确的点赞操作" } unless %W(like unlike).include?(params[:method])
+        
+        item = Item.find_by(id: params[:item_id])
+        if user.send(params[:method].to_sym, item)
+          { code: 0, message: "ok" }
+        else
+          { code: 1007, message: "点赞操作失败" }
+        end
+      end # end 点赞2
+      
     end # end user resource
     
   end
