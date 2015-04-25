@@ -48,9 +48,8 @@ GET /items/list
         range 覆盖范围，以米为单位，默认为500米范围内，整数，可选
         
 9.点赞与取消点赞
-POST /user/:method/:item_id 例如：POST /user/like/12
- 其中method参数的值固定为like或unlike
- item_id参数为某个菜条目的id
+POST /item/:method 其中method参数的值固定为like或unlike
+ 参数 item_id 为某个菜条目的id，必须
 
 注意：客户端自己处理点赞的状态保留
      
