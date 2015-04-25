@@ -46,5 +46,11 @@ GET /items/list
 参数     latitude 纬度，数字符串，必须
         longitude 经度，数字符串，必须
         range 覆盖范围，以米为单位，默认为500米范围内，整数，可选
+        
+9.点赞与取消点赞
+POST /user/:method/:item_id 例如：POST /user/like/12
+ 其中method参数的值固定为like或unlike
+ item_id参数为某个菜条目的id
+参数   token 用户登录的token, 必须
      
      
