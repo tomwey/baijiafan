@@ -24,6 +24,7 @@ class Item < ActiveRecord::Base
       left_time: self.left_time, 
       latitude: coordinates.y || "",
       longitude: coordinates.x || "",
+      blike: self.liked_by_user?(user),
       note: self.note || "",
       user: user || {}, 
     }
