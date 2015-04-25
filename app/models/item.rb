@@ -4,18 +4,18 @@ class Item < ActiveRecord::Base
   
   set_rgeo_factory_for_column :coordinates, GEO_FACTORY
   
-  geocoded_by :address, :lookup => lambda{ |obj| obj.geocoder_lookup } do |record, results|
-    result = results.first
-    
-    # record.address = result.address
-    record.coordinates = "POINT(#{result.longitude} #{result.latitude})"
-  end
-  
-  before_save :geocode
-  
-  def geocoder_lookup
-    :baidu
-  end
+  # geocoded_by :address, :lookup => lambda{ |obj| obj.geocoder_lookup } do |record, results|
+  #   result = results.first
+  #   
+  #   # record.address = result.address
+  #   record.coordinates = "POINT(#{result.longitude} #{result.latitude})"
+  # end
+  # 
+  # before_save :geocode
+  # 
+  # def geocoder_lookup
+  #   :baidu
+  # end
   # geocoded_by :address do |record, results|
   #   result = results.first
   #   

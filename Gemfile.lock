@@ -72,7 +72,6 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     execjs (2.5.2)
-    geocoder (1.2.8)
     grape (0.7.0)
       activesupport
       builder
@@ -207,7 +206,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   carrierwave (~> 0.10.0)
   coffee-rails (~> 4.0.0)
-  geocoder
   grape
   grape-entity
   jbuilder (~> 2.0)
