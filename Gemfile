@@ -8,6 +8,7 @@ gem 'pg'
 
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
+gem 'geocoder'
 
 # 上传组件
 gem 'carrierwave', '~> 0.10.0'

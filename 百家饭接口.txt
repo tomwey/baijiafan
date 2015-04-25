@@ -51,6 +51,7 @@ GET /items/list
 POST /user/:method/:item_id 例如：POST /user/like/12
  其中method参数的值固定为like或unlike
  item_id参数为某个菜条目的id
-参数   token 用户登录的token, 必须
+
+注意：客户端自己处理点赞的状态保留
      
      

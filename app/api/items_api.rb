@@ -69,6 +69,15 @@ module API
         { code: 0, message: "ok", data: items }
       end # end list
       
+      # 查询附近的地址
+      params do
+        requires :q, type: String, desc: "搜索地址关键字"
+      end
+      get :search do
+        items = Item.near(params[:q], 10, :order => :distance)
+        { code: 0, message: "ok", data: items }
+      end
+      
     end # end resource
     
   end

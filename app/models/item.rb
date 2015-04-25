@@ -4,6 +4,25 @@ class Item < ActiveRecord::Base
   
   set_rgeo_factory_for_column :coordinates, GEO_FACTORY
   
+  geocoded_by :address, :lookup => lambda{ |obj| obj.geocoder_lookup } do |record, results|
+    result = results.first
+    
+    # record.address = result.address
+    record.coordinates = "POINT(#{result.longitude} #{result.latitude})"
+  end
+  
+  before_save :geocode
+  
+  def geocoder_lookup
+    :baidu
+  end
+  # geocoded_by :address do |record, results|
+  #   result = results.first
+  #   
+  #   record.address = result.address
+  #   record.coordinates = GEO_FACTORY.point(result.latitude, result.longitude)
+  # end
+  
   validates :price, :quantity, format: { with: /\d+/, message: "必须是整数" }, numericality: { greater_than_or_equal_to: 0 }
   
   belongs_to :user

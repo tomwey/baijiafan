@@ -40,18 +40,22 @@ class User < ActiveRecord::Base
   
   def like(item)
     return false if item.blank?
-    return false if item.liked_by_user?(self)
-    LikeItem.where(user_id: self.id, 
-                   item_id: item.id, 
-                   item_user_id: item.user.id).first_or_create
+    user = item.user
+    user.update_attribute(:likes_count, user.likes_count + 1)
+    # return false if item.liked_by_user?(self)
+    # LikeItem.where(user_id: self.id, 
+    #                item_id: item.id, 
+    #                item_user_id: item.user.id).first_or_create
   end
   
   def unlike(item)
     return false if item.blank?
-    return false if not item.liked_by_user?(self)
-    LikeItem.destroy_all(user_id: self.id,
-                     item_id: item.id,
-                     item_user_id: item.user.id)
+    user = item.user
+    user.update_attribute(:likes_count, user.likes_count - 1) if user.likes_count > 0
+    # return false if not item.liked_by_user?(self)
+    # LikeItem.destroy_all(user_id: self.id,
+    #                  item_id: item.id,
+    #                  item_user_id: item.user.id)
   end
   
   def as_json(opts = {})
