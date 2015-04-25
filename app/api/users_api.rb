@@ -124,11 +124,27 @@ module API
         return { code: -1, message: "不正确的点赞操作" } unless %W(like unlike).include?(params[:method])
         
         item = Item.find_by(id: params[:item_id])
-        if user.send(params[:method].to_sym, item)
+        return { code: 1007, message: "该产品未找到" } if item.blank?
+        
+        user = item.user
+        method = params[:method].to_sym
+        if method == :like
+          likes_count = user.likes_count + 1
+        else
+          likes_count = user.likes_count - 1
+        end
+        
+        if user.update_attribute(:likes_count, likes_count)
           { code: 0, message: "ok" }
         else
-          { code: 1007, message: "点赞操作失败" }
+          { code: 1008, message: "点赞操作失败" }
         end
+        
+        # if user.send(params[:method].to_sym, item)
+        #   { code: 0, message: "ok" }
+        # else
+        #   { code: 1007, message: "点赞操作失败" }
+        # end
       end # end 点赞2
       
     end # end user resource
