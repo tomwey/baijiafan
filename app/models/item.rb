@@ -28,7 +28,10 @@ class Item < ActiveRecord::Base
   belongs_to :user
   
   mount_uploader :image, ImageUploader
-
+  
+  def self.search(keyword)
+    # Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").order("distance")
+  end
 
   def as_json(opts = {})
     {

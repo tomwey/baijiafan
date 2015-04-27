@@ -14,6 +14,10 @@ gem 'activerecord-postgis-adapter'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick','3.7.0', require: false
 
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'bootstrap_helper', '4.2.3'
+
 # YAML 配置信息
 gem 'settingslogic', '~> 2.0.9'
 

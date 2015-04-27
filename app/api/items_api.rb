@@ -62,25 +62,111 @@ module API
         requires :latitude, type: String, desc: "纬度，数字符串，必须"
         requires :longitude, type: String, desc: "经度，数字符串，必须"
         optional :range, type: Integer, desc: "覆盖范围，以米为单位，默认为500米范围内，整数，可选"
+        optional :page, type: Integer, desc: "当前页码"
+        optional :size, type: Integer, desc: "分页大小"
       end
       get :list do
         range = params[:range] || "500"
-        items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").order("distance")
-        { code: 0, message: "ok", data: items }
+        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").order("distance")
+        
+        page = params[:page] || "1"
+        size = params[:size] || "30"
+        
+        page = page.to_i
+        size = size.to_i
+        
+        @items = @items.paginate page: page, per_page: size
+        
+        { code: 0, message: "ok", data: @items }
       end # end list
       
-      # 查询附近的地址
+      # 搜索位置或菜名
       params do
-        requires :q, type: String, desc: "搜索地址关键字"
+        requires :q, type: String, desc: "搜索位置或菜名"
       end
       get :search do
-        items = Item.near(params[:q], 10, :order => :distance)
+        items = Item.search(params[:q])
         { code: 0, message: "ok", data: items }
       end
       
     end # end resource
     
     resource :item do
+      
+      # 修改菜品信息
+      params do
+        requires :token, type: String, desc: "Token，必须"
+        requires :item_id, type: Integer, desc: "菜品id"
+        optional :title, type: String, desc: "标题，必须"
+        optional :price, type: Integer, desc: "价格，整数，必须"
+        optional :quantity, type: Integer, desc: "数量，整数，必须"
+        optional :expired_at, type: String, desc: "截止日期，字符串，必须，格式为：2000-01-01 12:00:00"
+        optional :address, type: String, desc: "地址，字符串，必须"
+        optional :latitude, type: String, desc: "纬度，字符串，必须"
+        optional :longitude, type: String, desc: "经度，字符串，必须"
+        optional :service_modes, type: String, desc: "服务方式，字符串，必须"
+        optional :image, desc: "图片数据，二进制数据，可选"
+        optional :note, type: String, desc: "温馨提示，可选，字符串"
+      end
+      
+      post :update do
+        user = authenticate!
+        
+        item = Item.where(id: params[:item_id], user_id: user.id).first
+        
+        if params[:title]
+          item.title = params[:title]
+        end
+        
+        if params[:price]
+          item.price = params[:price]
+        end
+        
+        if params[:quantity]
+          item.quantity = params[:quantity]
+        end
+        
+        if params[:expired_at]
+          item.expired_at = params[:expired_at]
+        end
+        
+        if params[:address]
+          item.address = params[:address]
+        end
+        
+        if params[:service_models]
+          item.service_models = params[:service_models]
+        end
+        
+        if params[:longitude] and params[:latitude]
+          item.coordinates = 'POINT(' + "#{params[:longitude]}" + ' ' + "#{params[:latitude]}" + ')'
+        end
+        
+        if params[:image]
+          item.image = params[:image]
+        end
+        
+        if params[:note]
+          item.note = params[:note]
+        end    
+        
+        if item.save
+          { code: 0, message: "ok" }
+        else
+          { code: 2002, message: item.errors.full_messages.join(',') }
+        end
+      end
+      # 删除菜品信息
+      params do
+        requires :token, type: String, desc: "Token"
+        requires :item_id, type: Integer, desc: "条目id" 
+      end
+      post :delete do
+        user = authenticate!
+        
+        Item.destroy_all(user_id: user.id, id: params[:item_id])
+        { code: 0, message: "ok" }
+      end
       
       # 用户点赞操作2
       params do
