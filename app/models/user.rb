@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   def as_json(opts = {})
     {
       id: self.id,
+      mobile: self.mobile || "",
       nickname: self.nickname || "",
       token: self.private_token || "",
       avatar: self.avatar_url,

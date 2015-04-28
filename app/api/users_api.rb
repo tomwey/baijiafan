@@ -79,7 +79,7 @@ module API
         end
         
         if user.save
-          { code: 0, message: "ok" }
+          { code: 0, message: "ok", data: user }
         else
           { code: 1006, message: user.errors.full_messages.join(",") }
         end
