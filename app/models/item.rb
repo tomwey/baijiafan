@@ -44,12 +44,21 @@ class Item < ActiveRecord::Base
       service_modes: self.service_modes || "",
       address: self.address || "",
       left_time: self.left_time, 
+      expired_at: self.expired_time,
       latitude: coordinates.y || "",
       longitude: coordinates.x || "",
       blike: self.liked_by_user?(user),
       note: self.note || "",
       user: user || {}, 
     }
+  end
+  
+  def expired_time
+    if self.expired_at
+      self.expired_at.strftime('%Y-%m-%d %H:%M:%S')
+    else
+      ""
+    end
   end
   
   def liked_by_user?(user)
