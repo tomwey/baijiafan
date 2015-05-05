@@ -11,7 +11,7 @@ class ImageUploader < BaseUploader
   end
 
   version :large do
-    process resize_to_fill: [640, 640]
+    process resize_to_fill: [640, 384]
   end
 
   def filename
@@ -21,7 +21,7 @@ class ImageUploader < BaseUploader
   end
   
   def extension_white_list
-    %w(jpg jpeg png)
+    %w(jpg jpeg png webp)
   end
   
   protected
