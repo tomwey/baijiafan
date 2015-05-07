@@ -56,6 +56,28 @@ module API
         { code: 0, message: "ok", data: user }
       end # end get me
       
+      
+      # 更新头像
+      params do
+        requires :token, type: String, desc: "Token, 必须"
+        requires :avatar, desc: "用户头像图片数据，可选"
+      end
+      
+      post :update_avatar do
+        user = authenticate!
+        
+        if params[:avatar]
+          user.avatar = params[:avatar]
+        end
+        
+        if user.save
+          { code: 0, message: "ok", data: user }
+        else
+          { code: 1006, message: user.errors.full_messages.join(",") }
+        end
+        
+      end # end update avatar
+      
       # 修改用户资料
       params do
         requires :token, type: String, desc: "Token, 必须"
@@ -93,7 +115,7 @@ module API
       get :items do
         user = authenticate!
         
-        items = Item.where(user_id: user.id).order('id DESC')
+        items = Item.where(user_id: user.id).where('expired_at > ?', Time.now).order('id DESC')
         { code: 0, message: "ok", data: items }
       end # end items
       
