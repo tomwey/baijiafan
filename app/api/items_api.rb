@@ -134,8 +134,8 @@ module API
           item.address = params[:address]
         end
         
-        if params[:service_models]
-          item.service_models = params[:service_models]
+        if params[:service_modes]
+          item.service_modes = params[:service_modes]
         end
         
         if params[:longitude] and params[:latitude]
