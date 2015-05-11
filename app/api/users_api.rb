@@ -115,7 +115,7 @@ module API
       get :items do
         user = authenticate!
         
-        items = Item.where(user_id: user.id).where('expired_at > ?', Time.now).order('id DESC')
+        items = Item.where(user_id: user.id).order('id DESC')
         { code: 0, message: "ok", data: items }
       end # end items
       
