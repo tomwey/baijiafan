@@ -22,7 +22,7 @@ class Item < ActiveRecord::Base
   #   record.address = result.address
   #   record.coordinates = GEO_FACTORY.point(result.latitude, result.longitude)
   # end
-  
+  validates :title, :note, :price, :quantity, :coordinates, :address, :expired_at, :presence => true
   validates :price, :quantity, format: { with: /\d+/, message: "必须是整数" }, numericality: { greater_than_or_equal_to: 0 }
   
   belongs_to :user
