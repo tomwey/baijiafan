@@ -44,6 +44,7 @@ module API
         end    
         
         if item.save
+          item.user.increase_publish_count if item.user
           { code: 0, message: "ok" }
         else
           { code: 2001, message: item.errors.full_messages.join(',') }

@@ -58,6 +58,14 @@ class User < ActiveRecord::Base
     #                  item_user_id: item.user.id)
   end
   
+  def increase_publish_count
+    self.update_attribute(:publish_count, self.publish_count + 1)
+  end
+  
+  def decrease_publish_count
+    self.update_attribute(:publish_count, self.publish_count - 1) if self.publish_count > 0
+  end
+  
   def as_json(opts = {})
     {
       id: self.id,
@@ -67,6 +75,7 @@ class User < ActiveRecord::Base
       avatar: self.avatar_url,
       signature: self.signature || "",
       likes_count: self.likes_count,
+      publish_count: self.publish_count,
     }
   end
   

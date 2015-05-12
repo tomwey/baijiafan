@@ -32,6 +32,11 @@ class Item < ActiveRecord::Base
   def self.search(keyword)
     # Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").order("distance")
   end
+  
+  after_destroy :decrease_publish_count
+  def decrease_publish_count
+    self.user.decrease_publish_count if self.user
+  end
 
   def as_json(opts = {})
     {
@@ -45,12 +50,28 @@ class Item < ActiveRecord::Base
       address: self.address || "",
       left_time: self.left_time, 
       expired_at: self.expired_time,
-      latitude: coordinates.y || "",
-      longitude: coordinates.x || "",
+      latitude: latitude,
+      longitude: longitude,
       blike: self.liked_by_user?(user),
       note: self.note || "",
       user: user || {}, 
     }
+  end
+  
+  def latitude
+    if coordinates
+      coordinates.y || ""
+    else
+      ""
+    end
+  end
+  
+  def longitude
+    if coordinates
+      coordinates.x || ""
+    else
+      ""
+    end
   end
   
   def expired_time
