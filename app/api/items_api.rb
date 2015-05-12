@@ -9,7 +9,7 @@ module API
         requires :token, type: String, desc: "Token，必须"
         requires :title, type: String, desc: "标题，必须"
         requires :price, type: Integer, desc: "价格，整数，必须"
-        requires :quantity, type: Integer, desc: "数量，整数，必须"
+        # requires :quantity, type: Integer, desc: "数量，整数，必须"
         requires :expired_at, type: String, desc: "截止日期，字符串，必须，格式为：2000-01-01 12:00:00"
         requires :address, type: String, desc: "地址，字符串，必须"
         requires :latitude, type: String, desc: "纬度，字符串，必须"
@@ -25,7 +25,7 @@ module API
         item = Item.new(
                         title: params[:title], 
                         price: params[:price], 
-                        quantity: params[:quantity],
+                        # quantity: params[:quantity],
                         expired_at: params[:expired_at], 
                         address: params[:address], 
                         service_modes: params[:service_modes]
@@ -100,7 +100,7 @@ module API
         requires :item_id, type: Integer, desc: "菜品id"
         optional :title, type: String, desc: "标题，必须"
         optional :price, type: Integer, desc: "价格，整数，必须"
-        optional :quantity, type: Integer, desc: "数量，整数，必须"
+        # optional :quantity, type: Integer, desc: "数量，整数，必须"
         optional :expired_at, type: String, desc: "截止日期，字符串，必须，格式为：2000-01-01 12:00:00"
         optional :address, type: String, desc: "地址，字符串，必须"
         optional :latitude, type: String, desc: "纬度，字符串，必须"
@@ -123,9 +123,9 @@ module API
           item.price = params[:price]
         end
         
-        if params[:quantity]
-          item.quantity = params[:quantity]
-        end
+        # if params[:quantity]
+        #   item.quantity = params[:quantity]
+        # end
         
         if params[:expired_at]
           item.expired_at = params[:expired_at]
