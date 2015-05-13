@@ -67,9 +67,16 @@ module API
         optional :size, type: Integer, desc: "分页大小"
       end
       get :list do
-        range = params[:range] || "500"
-        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance")
+        range = params[:range]
         
+        if range
+          # 地图模式，在地图有限的范围内展示数据
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance")
+        else
+          # 列表模式，根据距离排序
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where('expired_at > ?', Time.now).order("distance")
+        end
+
         page = params[:page] || "1"
         size = params[:size] || "30"
         
