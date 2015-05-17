@@ -103,7 +103,7 @@ module API
       # 卖家接受订单
       params do
         requires :token, type: String, desc: "用户Token"
-        requires :order_no, type: Integer, desc: "订单号"
+        requires :order_no, type: String, desc: "订单号"
       end
       post :accept do
         user = authenticate!
@@ -128,7 +128,7 @@ module API
       params do
         requires :token, type: String, desc: "用户Token"
         requires :role, type: String, desc: "操作角色，值为buyer(买家，普通用户)或seller(卖家，发布者)之一"
-        requires :order_no, type: Integer, desc: "订单号"
+        requires :order_no, type: String, desc: "订单号"
       end
       post :cancel do
         user = authenticate!
@@ -194,7 +194,7 @@ module API
       # 卖家完成订单
       params do
         requires :token, type: String, desc: "用户Token"
-        requires :order_no, type: Integer, desc: "订单号"
+        requires :order_no, type: String, desc: "订单号"
       end
       post :complete do
         user = authenticate!
