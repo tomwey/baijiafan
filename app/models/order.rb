@@ -92,6 +92,7 @@ class Order < ActiveRecord::Base
       address: self.address || "",
       state: self.state || "",
       note: self.note || "",
+      user: self.user || {},
       # operate: self.format_operate,
       # operate_logs: self.order_state_logs || [],
     }
