@@ -113,7 +113,7 @@ module API
           return { code: -2, message: "未找到订单" }
         end
         
-        unless @order.state?(:normal)
+        unless @order.state.to_sym == :normal
           return { code: 3008, message: "不能接受订单" }
         end
         
@@ -145,7 +145,7 @@ module API
             return { code: -2, message: "未找到订单" }
           end
           
-          if @order.state?(:normal)
+          if @order.state.to_sym == :normal
             if @order.user_cancel
               
               # 恢复库存
@@ -169,7 +169,7 @@ module API
             return { code: -2, message: "未找到订单" }
           end
           
-          if @order.state?(:normal) or @order.state?(:accepted)
+          if @order.state.to_sym == :normal or @order.state.to_sym == :accepted
             if @order.seller_cancel
               
               # 恢复库存
