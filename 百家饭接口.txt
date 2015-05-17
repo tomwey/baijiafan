@@ -72,5 +72,49 @@ POST /item/update
 POST /item/delete
 参数   token  Token, 必须
       item_id 条目id, 必须
-     
-     
+      
+12.下订单
+POST /orders/create
+参数  
+   token, 用户Token, 必须
+   item_id, 条目id, 必须
+   service_modes, 服务方式, 必须
+   address, 服务地址, 必须
+   quantity, 份数, 必须
+   fee, 总价, 可选
+   note, 备注, 可选
+ 
+13.获取我的订单列表
+GET /orders/list
+参数
+  token, 用户Token, 必须
+  type, 列表数据类型，1表示我吃过的订单，2表示我卖过的订单, 必须
+  page, 当前页码, 可选，默认为1
+  size, 分页大小, 可选，默认为30
+
+例如：/orders/list?token=xxxxx&type=1 或者 /orders/list?token=xxxxx&type=2&page=2
+
+14.获取卖家未接受的订单
+GET /orders/unaccepted
+参数 
+  token, 用户Token, 必须
+例如：/orders/unaccepted?token=xxxxxx
+
+15.卖家接受订单
+POST /order/accept
+参数
+  token, 用户Token, 必须
+  order_no, 订单号, 必须
+
+16.取消订单
+POST /order/cancel
+参数
+  token, 用户Token, 必须
+  role, 操作角色，值为buyer(买家，普通用户)或seller(卖家，发布者)之一, 必须
+  order_no, 订单号, 必须
+  
+17.卖家完成订单
+POST /order/complete
+参数
+  token, 用户Token, 必须
+  order_no, 订单号, 必须

@@ -84,6 +84,18 @@ module API
         { code: 0, message: "ok", data: @orders }
       end # end list
       
+      # 获取卖家未接受的订单
+      params do
+        requires :token, type: String, desc: "用户Token"
+      end
+      get :unaccepted do
+        user = authenticate!
+        
+        @orders = Order.joins(:item).where('items.user_id = ?', user.id).order('id DESC')
+        
+        { code: 0, message: "ok", data: @orders }
+      end # end unaccepted
+      
     end # end orders resource
     
     resource :order do
