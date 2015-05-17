@@ -65,7 +65,8 @@ module API
       get :list do
         user = authenticate!
         
-        unless %W(1 2).include?(params[:type])
+        # puts params[:type]
+        if not %w(1 2).include?(params[:type].to_s)
           return { code: -1, message: "不正确的type参数，type的值只能是1或2" }
         end
         
@@ -132,7 +133,7 @@ module API
       post :cancel do
         user = authenticate!
         
-        unless %W(buyer seller).include?(params[:role])
+        unless %w(buyer seller).include?(params[:role].to_s)
           return { code: -1, message: "不正确的role参数值，值应该为buyer或seller" }
         end
         
