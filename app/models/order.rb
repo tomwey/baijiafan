@@ -90,9 +90,10 @@ class Order < ActiveRecord::Base
       ordered_at: self.format_ordered_at,
       service_modes: self.service_modes || "",
       address: self.address || "",
-      state: self.format_state,
+      state: self.state || "",
       note: self.note || "",
       # operate: self.format_operate,
+      # operate_logs: self.order_state_logs || [],
     }
   end
   
