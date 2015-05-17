@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  item_id: 1
+  service_modes: MyString
+  address: MyString
+  quantity: 1
+  note: MyString
+  fee: 1
+
+two:
+  user_id: 1
+  item_id: 1
+  service_modes: MyString
+  address: MyString
+  quantity: 1
+  note: MyString
+  fee: 1

@@ -45,6 +45,8 @@ gem 'spring',        group: :development
 gem 'grape'
 gem 'grape-entity'
 
+gem 'state_machine'
+
 gem 'rest-client'
 
 gem 'rack-cors', require: 'rack/cors'

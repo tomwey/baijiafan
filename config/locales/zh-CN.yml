@@ -3,6 +3,7 @@
     models:
       user: "用户"
       item: "条目"
+      order: "订单"
     attributes:
       user:
         mobile: "手机"
@@ -19,6 +20,14 @@
         coordinates: "位置坐标"
         image: "图片"
         service_modes: "服务方式"
+      order:
+        user_id: "下单人"
+        item_id: "条目"
+        service_modes: "服务方式"
+        address: "服务地址"
+        state: "订单状态"
+        quantity: "订单份数"
+        fee: "订单总价"
         
     errors:
       models:

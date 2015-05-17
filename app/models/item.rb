@@ -27,6 +27,8 @@ class Item < ActiveRecord::Base
   
   belongs_to :user
   
+  has_many :orders
+  
   mount_uploader :image, ImageUploader
   
   def self.search(keyword)
@@ -37,15 +39,24 @@ class Item < ActiveRecord::Base
   def decrease_publish_count
     self.user.decrease_publish_count if self.user
   end
+  
+  def increase_stock(stock)
+    self.update_attribute(:current_quantity, self.current_quantity + stock) if ( self.current_quantity + stock <= self.quantity )
+  end
+  
+  def decrease_stock(stock)
+    self.update_attribute(:current_quantity, self.current_quantity - stock) if self.current_quantity >=  stock
+  end
 
   def as_json(opts = {})
     {
       id: self.id,
       title: self.title || "",
+      intro: self.note || "",
       thumb_image: self.thumb_image_url,
       large_image: self.large_image_url,
       price: self.price || "",
-      # quantity: self.quantity || "",
+      quantity: self.current_quantity || "",
       service_modes: self.service_modes || "",
       address: self.address || "",
       left_time: self.left_time, 

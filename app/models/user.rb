@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   length: { is: 11 }, :uniqueness => true
   
   has_many :likes, dependent: :destroy
+  has_many :orders, dependent: :destroy
   
   validates :nickname, uniqueness: true, allow_nil: true
             
@@ -13,6 +14,14 @@ class User < ActiveRecord::Base
   def generate_private_token
     random_key = "#{SecureRandom.hex(10)}"
     self.update_attribute(:private_token, random_key)
+  end
+  
+  def increase_orders_count
+    self.update_attribute(:orders_count, self.orders_count + 1)
+  end
+  
+  def decrease_orders_count
+    self.update_attribute(:orders_count, self.orders_count - 1) if self.orders_count > 0
   end
   
   # def liked_by_user?(user)
@@ -76,6 +85,7 @@ class User < ActiveRecord::Base
       signature: self.signature || "",
       likes_count: self.likes_count,
       publish_count: self.publish_count,
+      orders_count: self.orders_count,
     }
   end
   
