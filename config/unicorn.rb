@@ -5,7 +5,7 @@ working_directory root
 # shared_root = "/home/deployer/apps/shuiguoshe/shared"
 
 listen "/tmp/unicorn.baijiafan.sock", :backlog => 64
-# listen 4096, :tcp_nopush => false
+listen 4096, :tcp_nopush => false
 
 timeout 30
 
