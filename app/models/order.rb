@@ -91,6 +91,7 @@ class Order < ActiveRecord::Base
       service_modes: self.service_modes || "",
       address: self.address || "",
       state: self.format_state,
+      note: self.note || "",
       # operate: self.format_operate,
     }
   end
@@ -100,7 +101,7 @@ class Order < ActiveRecord::Base
   end
   
   def format_state
-    case self.state
+    case self.state.to_sym
     when :normal then '待确认'
     when :accepted then '已确认'
     when :completed then '已完成'

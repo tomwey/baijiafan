@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
   end
   
   def decrease_stock(stock)
-    self.update_attribute(:current_quantity, self.current_quantity - stock) if self.current_quantity >=  stock
+    self.update_attribute(:current_quantity, self.current_quantity - stock) if self and self.current_quantity.to_i >=  stock
   end
 
   def as_json(opts = {})
