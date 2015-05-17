@@ -35,6 +35,8 @@ module API
         
         item.coordinates = 'POINT(' + "#{params[:longitude]}" + ' ' + "#{params[:latitude]}" + ')'
         
+        item.current_quantity = params[:quantity]
+        
         if params[:image]
           item.image = params[:image]
         end
