@@ -175,9 +175,6 @@ module API
               # 恢复库存
               @order.increase_item_stock
               
-              # 更新订单数
-              user.decrease_orders_count
-              
               # 记录订单操作日志
               @order.write_log(user.id, 3, '卖家取消订单', 'seller_cancel')
               { code: 0, message: "ok" }

@@ -49,6 +49,8 @@ gem 'state_machine'
 
 gem 'rest-client'
 
+gem 'jpush'
+
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-utf8_sanitizer'
 

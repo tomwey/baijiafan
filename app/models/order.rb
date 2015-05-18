@@ -17,7 +17,13 @@ class Order < ActiveRecord::Base
   def update_stock_and_send_notification
     # 减少库存
     item.decrease_stock(self.quantity)
+    
+    # 更新订单数
+    item.user.increase_orders_count if item.user
+    user.increase_orders_count
+    
     # 发送下单通知给卖家
+    PushService::push('您获得了一个订单', item.user.mobile)
     
   end
   
@@ -65,7 +71,7 @@ class Order < ActiveRecord::Base
     seller = item.user
     
     # 更新卖家的订单数
-    seller.increase_orders_count if seller
+    # seller.increase_orders_count if seller
     
     # 通知用户订单已经确认
     
