@@ -23,7 +23,9 @@ class Order < ActiveRecord::Base
     user.increase_orders_count
     
     # 发送下单通知给卖家
-    PushService::push('您获得了一个订单', item.user.mobile)
+    receipts = []
+    receipts << item.user.mobile
+    PushService.push('您获得了一个订单', receipts)
     
   end
   
@@ -74,6 +76,9 @@ class Order < ActiveRecord::Base
     # seller.increase_orders_count if seller
     
     # 通知用户订单已经确认
+    receipts = []
+    receipts << user.mobile
+    PushService.push('卖家已经确认了您的订单', receipts)
     
     # 记录订单操作日志
     OrderStateLog.create(order_id: self.id, user_id: seller.id, user_type: 3, operation_name: '卖家确认订单', action: "accept")
