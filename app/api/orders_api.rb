@@ -107,7 +107,7 @@ module API
       end
       post :accept do
         user = authenticate!
-        @order = Order.joins(:item).where('items.user_id = ? and order_no = ?', user.id, params[:order_no]).limit(1)
+        @order = Order.joins(:item).where('items.user_id = ? and order_no = ?', user.id, params[:order_no]).limit(1).first
         
         if @order.blank?
           return { code: -2, message: "未找到订单" }
@@ -199,7 +199,7 @@ module API
       post :complete do
         user = authenticate!
         
-        @order = Order.joins(:item).where('items.user_id = ? and order_no = ?', user.id, params[:order_no]).limit(1)
+        @order = Order.joins(:item).where('items.user_id = ? and order_no = ?', user.id, params[:order_no]).limit(1).first
         
         if @order.blank?
           return { code: -2, message: "未找到订单" }
