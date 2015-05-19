@@ -61,6 +61,7 @@ class Item < ActiveRecord::Base
       address: self.address || "",
       left_time: self.left_time, 
       expired_at: self.expired_time,
+      is_expired: self.expired_at <= Time.now,
       latitude: latitude,
       longitude: longitude,
       blike: self.liked_by_user?(user),
