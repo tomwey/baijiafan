@@ -115,7 +115,7 @@ module API
       get :items do
         user = authenticate!
         
-        items = Item.where(user_id: user.id).order('id DESC')
+        items = Item.where(user_id: user.id, visible: true).order('id DESC')
         { code: 0, message: "ok", data: items }
       end # end items
       

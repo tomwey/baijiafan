@@ -71,9 +71,9 @@ module API
         
         range = params[:range]
         
-        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('items.expired_at > ?', Time.now).order("distance")
+        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('visible = ? and items.expired_at > ?', true, Time.now).order("distance")
         
-        puts @items.map(&:distance)
+        # puts @items.map(&:distance)
         
         { code: 0, message: "ok", data: @items }
         
@@ -92,10 +92,10 @@ module API
         
         if range
           # 地图模式，在地图有限的范围内展示数据
-          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('visible = ? and expired_at > ?', true, Time.now).order("distance ASC, id DESC")
         else
           # 列表模式，根据距离排序
-          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where('visible = ? and expired_at > ?', true, Time.now).order("distance ASC, id DESC")
         end
 
         page = params[:page] || "1"
@@ -193,8 +193,16 @@ module API
       post :delete do
         user = authenticate!
         
-        Item.destroy_all(user_id: user.id, id: params[:item_id])
-        { code: 0, message: "ok" }
+        item = Item.where(user_id: user.id, id: params[:item_id]).first
+        item.visible = false
+        
+        if item.save
+          { code: 0, message: "ok" }
+        else
+          { code: 1009, message: "删除失败" }
+        end
+        # Item.destroy_all(user_id: user.id, id: params[:item_id])
+        # { code: 0, message: "ok" }
       end
       
       # 用户点赞操作2
