@@ -15,9 +15,14 @@ class PushService
       ),
       notification: JPush::Notification.build(alert: msg)
     )
-      
-    result = client.sendPush(payload);
-    logger.debug("Got result " + result.toJSON)
+    
+    begin
+      result = client.sendPush(payload);
+      logger.debug("Got result " + result.toJSON)
+    rescue JPush::ApiConnectionException
+      logger.debug("没有找到用户")
+    end
+    
   end
   
 end
