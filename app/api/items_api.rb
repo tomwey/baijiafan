@@ -60,6 +60,23 @@ module API
         { code: 0, message: "ok", data: item || {} }
       end # end view
       
+      # 获取某个点附近的数据
+      params do
+        requires :latitude, type: String, desc: "纬度，数字符串，必须"
+        requires :longitude, type: String, desc: "经度，数字符串，必须"
+        requires :range, type: Integer, desc: "覆盖范围，以米为单位，默认为500米范围内，整数，可选"
+      end
+      
+      get :nearby do
+        
+        range = params[:range]
+        
+        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
+        
+        { code: 0, message: "ok", data: @items }
+        
+      end # end nearby
+      
       # 根据当前位置获取菜单列表
       params do
         requires :latitude, type: String, desc: "纬度，数字符串，必须"
@@ -73,10 +90,10 @@ module API
         
         if range
           # 地图模式，在地图有限的范围内展示数据
-          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance")
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
         else
           # 列表模式，根据距离排序
-          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where('expired_at > ?', Time.now).order("distance")
+          @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
         end
 
         page = params[:page] || "1"
