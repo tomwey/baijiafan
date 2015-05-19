@@ -45,7 +45,16 @@ GET /items/show/:id  id为条目id
 GET /items/list
 参数     latitude 纬度，数字符串，必须
         longitude 经度，数字符串，必须
-        range 覆盖范围，以米为单位，整数，可选，备注：如果range参数不传值，表示列表模式，否则为地图模式
+        range 覆盖范围，以米为单位，整数，可选，备注：如果range参数不传值，表示取所有的数据，否则表示一定范围内的数据
+        page 当前页码，可选，默认为1
+        size 分页大小，可选，默认为30
+
+8-1.获取某个点附近一定范围内的数据，适用于地图模式和搜索
+GET /items/nearby
+参数
+  latitude 纬度，数字符串，必须
+  longitude 经度，数字符串，必须
+  range 覆盖范围，以米为单位，整数，必须
         
 9.点赞与取消点赞
 POST /item/:method 其中method参数的值固定为like或unlike

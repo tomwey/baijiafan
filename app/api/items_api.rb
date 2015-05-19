@@ -71,7 +71,7 @@ module API
         
         range = params[:range]
         
-        @items = Item.select("items.*, st_distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("st_dwithin(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})', #{range})").where('expired_at > ?', Time.now).order("distance ASC, id DESC")
+        @items = Item.select("items.*, ST_Distance(coordinates, 'point(#{params[:longitude]} #{params[:latitude]})') as distance").where("ST_Distance(coordinates, 'POINT(#{params[:longitude]} #{params[:latitude]})') < ? and expired_at > ?", range, Time.now).order("distance ASC, id DESC")
         
         { code: 0, message: "ok", data: @items }
         
