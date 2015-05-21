@@ -8,6 +8,8 @@ class Order < ActiveRecord::Base
   validates :fee, format: { with: /\d+/, message: "必须是整数" }, numericality: { greater_than_or_equal_to: 0 }
   validates :quantity, format: { with: /\d+/, message: "必须是整数" }, numericality: { greater_than_or_equal_to: 1 }
   
+  scope :unaccepted, -> { with_state(:normal) }
+  
   before_create :generate_order_no
   def generate_order_no
     self.order_no = Time.now.to_s(:number)[2,12] + Time.now.nsec.to_s

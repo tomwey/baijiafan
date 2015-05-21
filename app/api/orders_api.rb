@@ -92,7 +92,7 @@ module API
       get :unaccepted do
         user = authenticate!
         
-        @orders = Order.joins(:item).where('items.user_id = ?', user.id).order('id DESC')
+        @orders = Order.joins(:item).unaccepted.where('items.user_id = ?', user.id).order('id DESC')
         
         { code: 0, message: "ok", data: @orders }
       end # end unaccepted
