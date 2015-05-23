@@ -163,8 +163,12 @@ module API
             else
               { code: 3004, message: "用户取消订单失败" }
             end
+          elsif @order.state.to_sym == :canceled
+            { code: 3003, message: "卖家已经取消了订单，您不能进行取消操作" }
+          elsif @order.state.to_sym == :accepted
+            { code: 3003, message: "订单已经被卖家确认，您不能进行取消操作，如要取消，请联系卖家" }
           else
-            { code: 3003, message: "订单已经被卖家确认，您不能取消订单，如要取消，请联系卖家" }
+            { code: 3003, message: "订单已经完成，您不能进行取消操作" }
           end
         else
           # 卖方
@@ -193,7 +197,11 @@ module API
               { code: 3006, message: "卖家取消订单失败" }
             end
           else
-            { code: 3005, message: "卖家不能取消订单" }
+            if @order.state.to_sym == :canceled
+              { code: 3005, message: "买家已经取消该订单，您不能再进行取消操作" }
+            else
+              { code: 3005, message: "订单已经完成，您不能再进行取消操作" }
+            end
           end
         end
         
