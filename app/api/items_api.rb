@@ -17,10 +17,19 @@ module API
         requires :service_modes, type: String, desc: "服务方式，字符串，必须"
         optional :image, desc: "图片数据，二进制数据，可选"
         optional :note, type: String, desc: "温馨提示，可选，字符串"
+        optional :item_id, type: Integer, desc: "产品id"
       end
       
       post :create do
         user = authenticate!
+        
+        if params[:item_id]
+          # 删掉之前的老数据
+          item = Item.find_by(id: params[:item_id])
+          if item.present?
+            item.update_attribute(:visible, false)
+          end
+        end
         
         item = Item.new(
                         title: params[:title], 
