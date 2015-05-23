@@ -164,7 +164,7 @@ module API
               { code: 3004, message: "用户取消订单失败" }
             end
           else
-            { code: 3003, message: "订单已经确认，您不能取消订单" }
+            { code: 3003, message: "订单已经被卖家确认，您不能取消订单，如要取消，请联系卖家" }
           end
         else
           # 卖方
