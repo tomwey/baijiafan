@@ -27,7 +27,7 @@ class Order < ActiveRecord::Base
     # 发送下单通知给卖家
     receipts = []
     receipts << item.user.mobile
-    PushService.push('您获得了一个订单', receipts)
+    PushService.push('您获得了一个订单', receipts, { type: 1 })
     
   end
   
@@ -80,7 +80,7 @@ class Order < ActiveRecord::Base
     # 通知用户订单已经确认
     receipts = []
     receipts << user.mobile
-    PushService.push('卖家已经确认了您的订单', receipts)
+    PushService.push('卖家已经确认了您的订单', receipts, { type: 2 })
     
     # 记录订单操作日志
     OrderStateLog.create(order_id: self.id, user_id: seller.id, user_type: 3, operation_name: '卖家确认订单', action: "accept")

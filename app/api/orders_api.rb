@@ -155,9 +155,9 @@ module API
               @order.write_log(user.id, 2, '用户取消订单', 'user_cancel')
               
               # 通知卖方
-              receipts = []
-              receipts << @order.item.user.mobile
-              PushService.push('用户取消了订单', receipts)
+              # receipts = []
+              # receipts << @order.item.user.mobile
+              # PushService.push('用户取消了订单', receipts)
               
               { code: 0, message: "ok" }
             else
@@ -186,7 +186,7 @@ module API
               # 通知用户
               receipts = []
               receipts << @order.user.mobile
-              PushService.push('卖家取消了您的订单', receipts)
+              PushService.push('卖家取消了您的订单', receipts, { type: 3 })
               
               { code: 0, message: "ok" }
             else

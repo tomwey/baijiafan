@@ -2,7 +2,7 @@
 require 'jpush'
 class PushService
     
-  def self.push(msg, receipts = [])
+  def self.push(msg, receipts = [], extras = {})
     client = JPush::JPushClient.new('a12ca4979667fc93e8f8f243', '309ddbeb6271f7eceab9def9');
       
     logger = Logger.new(STDOUT);
@@ -13,7 +13,17 @@ class PushService
       audience: JPush::Audience.build(
       tag: tags
       ),
-      notification: JPush::Notification.build(alert: msg)
+      notification: JPush::Notification.build(
+        ios: JPush::IOSNotification.build(
+          alert: msg,
+          sound: "default",
+          extras: { "type" => extras[:type] }
+        ),
+        android: JPush::AndroidNotification.build(
+          alert: msg,
+          extras: { "type" => extras[:type] }
+        )
+      )
     )
     
     begin
