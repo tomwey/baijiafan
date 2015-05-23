@@ -114,7 +114,7 @@ module API
         end
         
         unless @order.state.to_sym == :normal
-          return { code: 3008, message: "不能接受订单" }
+          return { code: 3008, message: "订单已被用户取消，不能接受订单" }
         end
         
         if @order.accept
@@ -164,7 +164,7 @@ module API
               { code: 3004, message: "用户取消订单失败" }
             end
           else
-            { code: 3003, message: "用户不能取消订单" }
+            { code: 3003, message: "订单已经确认，您不能取消订单" }
           end
         else
           # 卖方
