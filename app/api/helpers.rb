@@ -45,6 +45,7 @@ module API
     # 认证用户
     def authenticate!
       return { code: 401, message: "用户未登录" } unless current_user
+      return { code: -10, message: "您的账号已经被禁用" } unless current_user.verified
       current_user
     end
     

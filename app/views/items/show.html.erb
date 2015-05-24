@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-xs-4">
+    <%= image_tag @item.image.url(:large) %>
+  </div>
+  <div class="col-xs-8">
+    <h1><%= @item.title %></h1>
+    <p>简介：<%= @item.note %></p>
+    <p>¥ <%= @item.price %></p>
+    <p>还剩<%= @item.quantity %>份</p>
+    <p>服务地址：<%= @item.address %></p>
+  </div>
+</div>
