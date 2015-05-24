@@ -17,12 +17,12 @@
       <tr>
         <td><%= link_to item.id, item %></td>
         <td><%= render_image_tag(item) %></td>
-        <td><%= item.title %></td>
-        <td><%= item.address %></td>
-        <td><%= item.user.mobile %></td>
-        <td><%= item.user.nickname %></td>
-        <td><%= item.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-        <td>
+        <td width="15%"><%= item.title %>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+        <td width="15%"><%= item.address %></td>
+        <td width="10%"><%= item.user.mobile %></td>
+        <td width="10%"><%= item.user.nickname %></td>
+        <td width="15%"><%= item.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td width="5%">
           <%= link_to '删除', item, method: :delete, data: { confirm: '您确定吗？' }, class: "btn btn-xs btn-danger" %>
         </td>
       </tr>

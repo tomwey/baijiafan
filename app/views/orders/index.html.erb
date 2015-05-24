@@ -19,14 +19,14 @@
       <tr>
         <td><%= order.id %></td>
         <td><%= render_image_tag(order.item) %></td>
-        <td><%= order.item.title %></td>
+        <td width="15%"><%= order.item.title if order.item %></td>
         <td><%= render_order_state(order) %></td>
         <td><%= order.service_modes %></td>
         <td><%= order.address %></td>
         <td><%= order.quantity %></td>
         <td><%= order.fee %></td>
         <td><%= order.user.mobile %></td>
-        <td><%= order.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td width="15%"><%= order.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
       </tr>
     <% end %>
   </tbody>

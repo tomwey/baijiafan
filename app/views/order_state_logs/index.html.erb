@@ -15,8 +15,8 @@
     <% @logs.each do |log| %>
       <tr>
         <td><%= log.id %></td>
-        <td><%= image_tag log.order.item.image.url(:thumb) %></td>
-        <td><%= log.order.item.title %></td>
+        <td><%= render_image_tag(log.order.item) %></td>
+        <td width="15%"><%= log.order.item.title %></td>
         <td><%= log.user.nickname %></td>
         <td><%= render_log_user_type(log) %></td>
         <td><%= log.operation_name %></td>
