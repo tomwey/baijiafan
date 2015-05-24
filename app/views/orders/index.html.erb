@@ -18,7 +18,7 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.id %></td>
-        <td><%= image_tag order.item.image.url(:thumb) %></td>
+        <td><%= render_image_tag(order.item) %></td>
         <td><%= order.item.title %></td>
         <td><%= render_order_state(order) %></td>
         <td><%= order.service_modes %></td>

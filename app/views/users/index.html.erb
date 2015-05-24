@@ -16,7 +16,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= image_tag user.avatar.url(:small) %></td>
+        <td><%= render_avatar_tag(user) %></td>
         <td><%= user.mobile %></td>
         <td><%= user.nickname %></td>
         <td><%= user.signature %></td>
