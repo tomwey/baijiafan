@@ -19,7 +19,7 @@
       <tr>
         <td><%= order.id %></td>
         <td><%= render_image_tag(order.item) %></td>
-        <td width="15%"><%= order.item.title if order.item %></td>
+        <td width="15%"><%= render_title_tag(order.item) %></td>
         <td><%= render_order_state(order) %></td>
         <td><%= order.service_modes %></td>
         <td><%= order.address %></td>
