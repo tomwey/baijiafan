@@ -44,4 +44,4 @@ end
 I18n.config.enforce_available_locales = false
 I18n.locale = 'zh-CN'
 
-GC::Profiler.enable
+# GC::Profiler.enable
