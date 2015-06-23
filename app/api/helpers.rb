@@ -52,7 +52,7 @@ module API
     # 手机号验证
     def check_mobile(mobile)
       return false if mobile.length != 11
-      mobile =~ /\A1[3|4|5|8][0-9]\d{4,8}\z/
+      mobile =~ /\A1[3|4|5|8|7][0-9]\d{4,8}\z/
     end
     
     # end helpers
