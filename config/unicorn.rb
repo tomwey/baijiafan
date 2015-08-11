@@ -1,4 +1,4 @@
-worker_processes 6
+worker_processes 2
 
 root = "/home/deployer/apps/baijiafan_production/current"
 working_directory root
